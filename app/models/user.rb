@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attachment :image
+  attachment :profile_image
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -7,7 +7,8 @@ class User < ApplicationRecord
 end
 
 class User < ApplicationRecord
-    has_many :books
+    has_many :books, dependent: :destroy
+    attachment :profile_image
 end
 
 class Post < ApplicationRecord
