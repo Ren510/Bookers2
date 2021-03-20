@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+  
+  end
+    
   def show
     @user = User.find(1)
     @post_images = @user.books
@@ -8,10 +12,10 @@ class UsersController < ApplicationController
      @user = User.new(user_params)
       @user.image = "default_icon.jpg"
     if @user.save
-      redirect_to posts_path, success: 'You have created book successfully.'
+      flash[:notice] = "Welcome! You have signed up successfully.."
     else
-      flash.now[:danger] = "登録に失敗しました"
-      render :new
+      @books = Book.all
+      render :index
     end
   end
   
