@@ -1,7 +1,15 @@
-<h2>タイトル</h2>
-<p><%= @book.title %></p>
-<h2>本文</h2>
-<p><%= @book.body %></p>
-<h2>画像</h2>
-<%= attachment_image_tag @book, :image, :fill, 300, 300, format: 'jpeg' %>
-<%= link_to "編集", edit_book_path(@book.id) %>
+  <%= render 'users/user', user: @user,book: @book %>
+
+    <div class="col-md-8 offset-md-1">
+      <table class="table">
+    	  <h2>Book detail</h2>
+    	    <table class="table">
+    	      <tr>
+
+      	        <td><%= attachment_image_tag @user, :profile_image, :fill, 40, 40, format: 'jpeg' %><br>
+      	            <%= link_to @user.name %></td>
+      	        <td><%= link_to @book.title %></td>
+      	        <td><%= @book.body %></td>
+                <td><%= link_to "Edit",edit_book_path(@book) ,class: "btn btn-sm btn-success edit_book_23722" %></td>
+                <td><%= link_to "Destroy",destroy_user_session_path(@book) ,class: "btn btn-sm btn-danger destroy_book_23722" %></td>
+            </tr>

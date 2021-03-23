@@ -7,8 +7,9 @@ class UsersController < ApplicationController
     @post_image = PostImage.new
   end
   def show
+    @users = User.all 
     @book = Book.new
-    @user = User.find(1)
+    @user = current_user
     @post_images = @user.books
   end
 
@@ -24,16 +25,16 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(1)
+    @user = User.find(params[:id])
   end
 
   def update
     @user = User.find(params[:id])
     @user.update(user_params)
-    redirect_to user_path(@user)
+    redirect_to user_path(@user.id)
   end
+  
   private
-
   def user_params
     params.require(:user).permit(:name, :profile_image, :introduction)
   end
