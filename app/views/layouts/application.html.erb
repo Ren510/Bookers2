@@ -20,7 +20,7 @@
       <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
         <ul class="navbar-nav ml-auto">
           <%= link_to"Home",user_path(current_user.id),class:"fas fa-home nav-link text-light" %>
-           <%= link_to"Users",users_path,class:"fas fa-users nav-link text-light" %>
+          <%= link_to"Users",users_path,class:"fas fa-users nav-link text-light" %>
           <%= link_to"Books",books_path,class:"fas fa-book-open nav-link text-light" %>
           <%= link_to"logout",destroy_user_session_path, method: :delete ,class:"fas fa-sign-out-alt nav-link text-light" %>
         </ul>
