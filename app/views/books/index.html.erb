@@ -15,6 +15,7 @@
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
+            <th></th>
             <th>Title</th>
             <th>Opinion</th>
           </tr>
@@ -24,11 +25,12 @@
             <%= attachment_image_tag book.user, :profile_image, :fill, 30, 30, format: 'jpeg',fallback: 'sample-author1.jpeg',size: '30x30' %>
             <% end %>
             </td>
-            <td><%=link_to book_path(book) do %>
-            <%= book.title %> 
-            <% end %>
-            <%= book.body %> </td>
-            <p><%= link_to "#{@book.book_comments.count} コメント", book_path(book.id) %></p>
+                <%=link_to book_path(book) do %>
+            <td><%= book.title %> </td>
+                <% end %>
+            <td><%= book.body %> </td>
+            <td><%= render 'layouts/favorites', book: book %></td>
+            <td><%= link_to "#{book.book_comments.count} コメント", book_path(book.id) %></td> 
           </tr>
             <% end %>
             <th colspan="3"></th>

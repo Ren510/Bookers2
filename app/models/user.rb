@@ -2,7 +2,35 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  
+
+  # foreign_key（FK）には、@user.xxxとした際に「@user.idがfollower_idなのかfollowed_idなのか」を指定します。
+  has_many :active_relationships, class_name:  "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships,class_name:  "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # @user.booksのように、@user.yyyで、
+  # そのユーザがフォローしている人orフォローされている人の一覧を出したい
+  has_many :followeds, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
+  def follow(other_user)
+    unless self == other_user
+      # self.active_relationships.find_or_create_by(follow_id: other_user.id)
+      relationship = Relationship.new(follower_id: self.id , followed_id: other_user.id)
+      relationship.save!
+    end
+  end
+
+  def unfollow(other_user)
+    relationship = self.relationships.find_by(follow_id: other_user.id)
+    
+    # relationship = Relationship.findd_by(follower_id: xxx, followed_id: xxx)
+    relationship.destroy if relationship
+  end
+
+  def following?(other_user)
+    # self.followers.include?(other_user)
+    self.followeds.include?(other_user)
+  end
+
   attachment :profile_image
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
