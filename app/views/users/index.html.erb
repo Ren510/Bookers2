@@ -19,15 +19,6 @@
             <th>name</th>
           </tr>
 
-          <% if user_signed_in? %>
-            <% @users.each do |user| %>
-              <p>
-            <%= "id: #{user.id} books: #{user.books}" %>
-
-              </p>
-            <% end %>
-          <% end %>
-
             <% @users.each do |user| %>
           <tr>
             <td> <%= attachment_image_tag user, :profile_image, :fill, 30, 30, format: 'jpeg',fallback: 'sample-author1.jpeg',size: '30x30' %> </td>

@@ -1,0 +1,31 @@
+  <div class="container">
+    <h2>Follow Users</h2>
+    
+    <% if @users.empty? %>
+         <span>ユーザーはいません</span>
+    <% else%>
+      <table class="table table-hover table-inverse">
+          <tr>
+            <th>Image</th>
+            <th>name</th>
+          </tr>
+          <tr>
+            <th><%= link_to attachment_image_tag @user, :profile_image, :fill, 30, 30, format: 'jpeg',fallback: 'sample-author1.jpeg',size: '30x30' %> </th>
+            <th><%= @user.name %> </th>
+          	<th><%= "フォロー数: #{@user.followers.count}" %></th>
+            <th><%= "フォロワー数: #{@user.followeds.count}" %></th>
+            <th><%= link_to "Show",user_path(@user.id) %></th>
+          </tr>
+        <tbody>
+        </tbody>
+      </table>
+    <% end %>
+    </div>
+  </div>
+   <div class="container mt-5">
+    <div class="row">
+    	<div class="mx-auto">
+    		<p>CopyRight Infratop.inc</p>
+    	</div>
+    </div>
+  </div>

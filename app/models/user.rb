@@ -20,10 +20,11 @@ class User < ApplicationRecord
   end
 
   def unfollow(other_user)
-    relationship = self.relationships.find_by(follow_id: other_user.id)
-    
-    # relationship = Relationship.findd_by(follower_id: xxx, followed_id: xxx)
+    relationship = self.active_relationships.find_by(followed_id: other_user.id)
     relationship.destroy if relationship
+    # relationship = self.relationships.find_by(followed_id: self.id , follower_id:  other_user.id)
+    # relationship = Relationship.findd_by(follower_id: xxx, followed_id: xxx)
+    # relationship.destroy if relationship
   end
 
   def following?(other_user)

@@ -3,8 +3,14 @@ Rails.application.routes.draw do
   get 'home/about'=>'homes#about'
   post 'follow/:id' => 'relationships#follow', as: 'follow' # フォローする  
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' # フォロー外す
-  resources :books
   
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  
+  resources :books
   resources :relationships, only: [:create, :destroy]
   
   resources :books, only: [:new, :edit, :create, :index, :show, :destroy] do

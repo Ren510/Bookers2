@@ -11,6 +11,7 @@
     end
 
     def unfollow
+      @users = User.find(params[:id])
       followers = current_user.unfollow(@users)
       if followers.destroy
         redirect_to request.referer

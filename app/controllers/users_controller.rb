@@ -1,7 +1,19 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update]
-  
+
+  def following
+    @user = User.find(params[:id])
+    @users = @user.followeds.page(params[:page])
+    render 'following'
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers.page(params[:page])
+    render 'followers'
+  end
+
   def index
     @users = User.all
     @book = Book.new
@@ -11,7 +23,7 @@ class UsersController < ApplicationController
   def new
     @post_image = PostImage.new
   end
-  
+
   def show
     @book = Book.new
     @user = User.find(params[:id])
@@ -31,6 +43,11 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    if @user == current_user
+      render "edit"
+    else
+      redirect_to user_path
+    end
   end
 
   def update
@@ -46,14 +63,13 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :profile_image, :introduction)
+      params.require(:user).permit(:name, :profile_image, :introduction)
   end
 
   def correct_user
     @user = User.find(params[:id])
     if current_user != @user
-      redirect_to user_path(current_user)
+     redirect_to user_path(current_user)
     end
   end
-
 end
