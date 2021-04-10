@@ -6,12 +6,15 @@ Rails.application.routes.draw do
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' # フォロー外す
   get 'search' => 'searches#search'
   
+  post 'favorite/:id' => 'favorites#create', as: 'create_favorite'
+  delete 'favorite/:id' => 'favorites#destroy', as: 'destroy_favorite'
+
+  
   resources :books
   resources :relationships, only: [:create, :destroy]
   
   resources :books, only: [:new, :edit, :create, :index, :show, :destroy] do
-  resource :favorites, only: [:create, :destroy]
-    resources :book_comments, only: [:create, :destroy]
+   resources :book_comments, only: [:create, :destroy]
   end
   
   devise_for :users, controllers: {
