@@ -3,9 +3,9 @@ class BooksController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def index
-     @books = Book.all
-     @book = Book.new
-     @user = current_user
+    @books = Book.all
+    @book = Book.new
+    @user = current_user
   end
   def show
     @new_book = Book.new

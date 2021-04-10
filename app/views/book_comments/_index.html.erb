@@ -1,0 +1,23 @@
+  <% @book.book_comments.each do |book_comment| %>
+    <tr>
+      <td>
+        <th>
+          
+        <%= link_to user_path(book_comment.user.id) do %>
+        <td><%= attachment_image_tag(book_comment.user, :profile_image,:fill, 40, 40, format: 'jpeg',fallback: 'sample-author1.jpeg',size: '40x40') %></td>
+        <td><br><%= link_to @user.name,books_path(current_user) %><br><td>
+        <td><%= book_comment.comment %></td>
+        <% end %>
+        
+      </td>
+
+      <td>
+
+      </td>
+      <td>
+        <% if book_comment.user == current_user %>
+        <%= link_to 'Destroy', book_book_comment_path(book_comment.book, book_comment), method: :delete, remote: true, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %>
+        <% end %>
+
+
+  <% end %>

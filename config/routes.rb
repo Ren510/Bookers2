@@ -2,31 +2,28 @@ Rails.application.routes.draw do
   get 'searchs/index'
   root  'homes#top'
   get 'home/about'=>'homes#about'
-  post 'follow/:id' => 'relationships#follow', as: 'follow' # フォローする  
+  post 'follow/:id' => 'relationships#follow', as: 'follow' # フォローする
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' # フォロー外す
   get 'search' => 'searches#search'
-  
-  post 'favorite/:id' => 'favorites#create', as: 'create_favorite'
-  delete 'favorite/:id' => 'favorites#destroy', as: 'destroy_favorite'
 
-  
-  resources :books
   resources :relationships, only: [:create, :destroy]
   
+  resources :books
   resources :books, only: [:new, :edit, :create, :index, :show, :destroy] do
-   resources :book_comments, only: [:create, :destroy]
+    resource :favorites, only: [:create, :destroy]
+      resources :book_comments, only: [:create, :destroy]
   end
-  
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users do
     member do
       get :following, :followers
     end
   end
-  
+
 end
