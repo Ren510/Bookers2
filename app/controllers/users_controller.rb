@@ -32,9 +32,11 @@ class UsersController < ApplicationController
 
   def create
       @user = User.new(user_params)
-      @user.image = "default_icon.jpg"
+      # @user.image = "default_icon.jpg"
     if @user.save
-      flash[:notice] = "Welcome! You have signed up successfully.."
+      NotificationMailer.send_confirm_to_user(@user).deliver
+      # flash[:notice] = "Welcome! You have signed up successfully.."
+      redirect_to @user
     else
       @books = Book.all
       render :index
@@ -60,7 +62,7 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   private
   def user_params
       params.require(:user).permit(:name, :profile_image, :introduction)

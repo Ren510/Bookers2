@@ -1,5 +1,5 @@
-class ApplicationMailer < ActionMailer::Base
-   default from: "hogehoge@example.com"
+class NotificationMailer < ApplicationMailer::B
+  default from: "hogehoge@example.com"
 
   def send_confirm_to_user(user)
     @user = user
