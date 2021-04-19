@@ -4,15 +4,15 @@
        <h2>Sign up</h2>
 
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <%= render "users/shared/error_messages", resource: resource %>
+        <%= render "users/shared/error_messages", resource: resource %>
 
-        <div class="field">
+          <div class="field">
             <%= f.label :name %><br />
             <%= f.text_field :name, autofocus: true %>
           </div>
           <div class="field">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
           </div>
 
           <div class="field">
@@ -23,7 +23,7 @@
           <div class="field">
             <%= f.label :prefecture_name %><br />
 
-          / 47都道府県をプルダウンメニューで表示
+          <!--47都道府県をプルダウンメニューで表示-->
             <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-control' %>
           </div>
 
